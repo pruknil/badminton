@@ -23,18 +23,8 @@ const ButtonsTab = StackNavigator({
   Buttons: {
     screen: ButtonsTabView,
     path: '/',
-    navigationOptions: ({ navigation }) => ({
-      title: 'Buttons',
-      headerLeft: (
-        <Icon
-          name="menu"
-          size={30}
-          type="entypo"
-          style={{ paddingLeft: 10 }}
-          onPress={() => navigation.navigate('DrawerOpen')}
-        />
-      ),
-    }),
+    headerMode: 'none',
+    navigationOptions: {headerVisible: false},
   },
   Button_Detail: {
     screen: ButtonsDetailTabView,
@@ -43,6 +33,11 @@ const ButtonsTab = StackNavigator({
       title: 'Buttons Detail',
     },
   },
+},{
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false,
+    }
 });
 
 export default ButtonsTab;
