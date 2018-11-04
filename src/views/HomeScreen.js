@@ -3,7 +3,7 @@ import Expo, { AppLoading, Asset, Font } from 'expo';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { View, Image, Dimensions } from 'react-native';
 import { DrawerNavigator, DrawerItems } from 'react-navigation';
-
+import MainDrawer from '../drawer/MainDrawer';
 import Components from '../drawer/components';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -26,15 +26,18 @@ const CustomDrawerContentComponent = props => (
 
 const MainRoot = DrawerNavigator(
   {
-
+    MainDrawer: {
+      path: '/mainDrawer',
+      screen: MainDrawer,
+    },
     Components: {
       path: '/components',
       screen: Components,
     },
-
+    
   },
   {
-    initialRouteName: 'Components',
+    initialRouteName: 'MainDrawer',
     contentOptions: {
       activeTintColor: '#548ff7',
       activeBackgroundColor: 'transparent',
