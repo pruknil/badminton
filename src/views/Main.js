@@ -58,7 +58,7 @@ class Main extends Component {
   render() {
     return (
 <View style={styles.container}>
-  <SearchBar placeholder="ค้นหา" {...dummySearchBarProps}  containerStyle={styles.searchbar} />
+  <SearchBar lightTheme={true} placeholder="ค้นหา" {...dummySearchBarProps}  containerStyle={styles.searchbar} />
   <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
       <View style={styles.list}>
           {list2.map((l, i) => (

@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ImageBackground, Dimensions,AsyncStorage } from 'react-native';
-import { Input, Button } from 'react-native-elements'
+import { Input, Button,SocialIcon } from 'react-native-elements'
 import Toast, {DURATION} from 'react-native-easy-toast'
 import { Font } from 'expo';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -140,7 +140,11 @@ export default class SignInScreen extends React.Component {
               containerStyle={{marginVertical: 10}}
               titleStyle={{fontWeight: 'bold', color: 'white'}}
             />
-          
+            <SocialIcon
+              title='Sign In With Facebook'
+              button
+              type='facebook'
+            />
             <View style={styles.footerView}>
               <Text style={{color: 'grey'}}>
                 New here?
