@@ -58,7 +58,7 @@ class Main extends Component {
   render() {
     return (
 <View style={styles.container}>
-  <SearchBar placeholder="Default searchbar" {...dummySearchBarProps} />
+  <SearchBar placeholder="ค้นหา" {...dummySearchBarProps}  containerStyle={styles.searchbar} />
   <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
       <View style={styles.list}>
           {list2.map((l, i) => (
@@ -94,6 +94,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 22,
     fontWeight: 'bold'
+  },
+  searchbar: {
+    marginTop: 20,
   },
   contentView: {
     flex: 1,
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   list: {
-    marginTop: 20,
+    marginTop: 0,
     borderTopWidth: 1,
     borderColor: colors.greyOutline,
     backgroundColor: '#fff',
