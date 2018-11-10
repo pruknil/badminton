@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, Text, Dimensions } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, Dimensions,ActivityIndicator ,RefreshControl} from 'react-native';
 import { Input, SearchBar, Icon, Button,  ListItem, } from 'react-native-elements'
 
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
@@ -55,19 +55,70 @@ const dummySearchBarProps = {
 }
 
 class Main extends Component {
+  constructor(props){
+    super(props);
+    this.state = { isLoading: false,
+                   refreshing: false,
+                   dataSource: [],
+                  }
+  }
+
+
+  componentDidMount(){
+    this._listData();
+  }
+
+  _listData = () => {
+    this.setState({refreshing: true});
+    var headers = new Headers();
+    headers.append("Authorization", "Basic YmFkYXBpOnBhc3N3b3Jk");
+    return fetch('https://badapi.herokuapp.com/api/guan',{headers: headers})
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          refreshing: false,
+          dataSource: responseJson,
+        }, function(){
+
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+  }
+
+
   render() {
+
+    if(this.state.isLoading){
+      return(
+        <View style={{flex: 1, padding: 20}}>
+          <ActivityIndicator/>
+        </View>
+      )
+    }
+
+
     return (
 <View style={styles.container}>
   <SearchBar lightTheme={true} placeholder="ค้นหา" {...dummySearchBarProps}  containerStyle={styles.searchbar} />
-  <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
+  <ScrollView keyboardShouldPersistTaps="handled"
+    refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._listData}
+          />
+        }>
       <View style={styles.list}>
-          {list2.map((l, i) => (
+          {this.state.dataSource.map((l, i) => (
             <ListItem
-              leftAvatar={{ rounded: true, source: { uri: l.avatar_url } }}
+              leftAvatar={{ rounded: true, source: { uri: l.picture } }}
               key={i}
               onPress={log}
               title={l.name}
-              subtitle={l.subtitle}
+              subtitle={l.starttime}
               chevron
               bottomDivider
             />
@@ -81,7 +132,8 @@ class Main extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    flexGrow: 1
   },
   headerContainer: {
     justifyContent: 'center',
@@ -138,6 +190,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: colors.greyOutline,
     backgroundColor: '#fff',
+    
   },
 });
 
